@@ -1,0 +1,15 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignoreExportsUsedInFile": true,
+  "workspaces": {
+    ".": {
+      "entry": ["e2e/**/*.spec.ts", "scripts/*.ts"]
+    },
+    "apps/api": {
+      "ignoreDependencies": ["pino-pretty"]
+    },
+    "apps/web": {
+      "entry": ["src/components/ui/**/*.tsx"]
+    }
+  }
+}

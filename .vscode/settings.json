@@ -1,0 +1,10 @@
+{
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports.biome": "explicit",
+    "source.fixAll.biome": "explicit"
+  },
+  "files.readonlyInclude": { "**/routeTree.gen.ts": true },
+  "files.exclude": { "**/.turbo": true }
+}

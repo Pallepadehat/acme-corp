@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Acme Corp" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Acme Corp</title>
+    <!--
+      Inline, so it costs no request and runs before the first paint:
+      1. set the theme class, so dark mode never flashes white;
+      2. start asking who is signed in, in parallel with downloading the app.
+      Keep the 'theme' key in step with next-themes.
+    -->
+    <script>
+      {
+        const root = document.documentElement
+        let dark = false
+        try {
+          const theme = localStorage.getItem('theme')
+          dark =
+            theme === 'dark' ||
+            ((!theme || theme === 'system') && matchMedia('(prefers-color-scheme: dark)').matches)
+        } catch {}
+        root.classList.add(dark ? 'dark' : 'light')
+        root.style.colorScheme = dark ? 'dark' : 'light'
+        window.__session = fetch('/api/auth/get-session', { credentials: 'same-origin' })
+          .then((r) => (r.ok ? r.json() : null))
+          .catch(() => null)
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
